@@ -181,6 +181,9 @@ while running:
                     gamestate = 1
                     pygame.time.set_timer(pygame.USEREVENT+1,interval)
                     pright,pwrong,pmatch,pcolor = 0,0,False,(0,0,0)
+                    prevsqr = None
+                    currsqr = None
+                    squares = []
                     numsqr = 0
             elif gamestate == 1:
                 dx = pst[0] - stopx
@@ -233,6 +236,8 @@ while running:
                 gamestate = 2
                 pygame.time.set_timer(pygame.USEREVENT+1,0)
                 continue
+            if len(squares)>=dualn:
+                prevsqr = squares.pop(0)
             x = random.randrange(0,3)
             y = random.randrange(0,3)
             c = random.randrange(26)
@@ -246,8 +251,6 @@ while running:
             voice[c].play()
             showsquare = True
             pygame.time.set_timer(pygame.USEREVENT+4,200)
-            if len(squares)>dualn:
-                prevsqr = squares.pop(0)
         if event.type == pygame.USEREVENT+2:
             pcolor = (0,0,0)
             pygame.time.set_timer(pygame.USEREVENT+2,0)
